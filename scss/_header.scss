@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15%;
+
+  @include landscape {
+    display: none;
+  }
+
+  @include mq(sm) {
+    height: auto;
+  }
+
+  &__title {
+    font-size: $base-font-size * 4;
+
+    @include mq(sm) {
+      font-size: $base-font-size * 8;
+      color: $calc-bgc-color;
+    }
+  }
+}

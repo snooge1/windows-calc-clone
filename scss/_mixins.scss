@@ -1,0 +1,19 @@
+@mixin mq($breakpoint) {
+  $size: map-get($map: $breakpoints, $key: $breakpoint);
+
+  @if ($size) {
+    @media screen and #{$size} {
+      @content;
+    }
+  }
+
+  @else {
+    @error '#{$breakpoint} doesnt exists';
+  }
+}
+
+@mixin landscape() {
+  @media screen and (max-width: #{$max-landscape}) and (orientation : landscape) {
+    @content;
+  }
+}

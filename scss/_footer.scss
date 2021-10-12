@@ -1,0 +1,12 @@
+.footer {
+  position: absolute;
+  bottom: $main-spacing;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: $main-spacing;
+
+  &__image {
+    width: 100%;
+  }
+}

@@ -1,0 +1,11 @@
+#css dir
+/css
+
+#icon files
+/ico
+
+#footer
+footer.html
+
+#debug tools
+/script/debug.js

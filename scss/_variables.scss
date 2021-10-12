@@ -1,0 +1,29 @@
+// SIZES
+
+$calc-max-width: 600px;
+$calc-max-height: 800px;
+
+$max-landscape: 1000px;
+
+$base-input-size: 100px;
+
+$main-spacing: 10px;
+$base-font-size: 10px;
+$ico-size: 30px;
+
+// COLORS 
+
+$wrapper-bgc-color: #9fb6bf;
+$wrapper-font-color: #3e4f59;
+
+$calc-bgc-color: #3e4f59;
+$font-color: #f0f2f1;
+$prev-operation-color: #d7d9d8;
+$number-button-color: #9fb6bf;
+$function-button-color: #809ba6;
+
+// MQ BREAKPOINTS
+$breakpoints: (xs: (min-width: 480px),
+  sm: (min-width: 800px),
+  md: (min-width: 1240px),
+);

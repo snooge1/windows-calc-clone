@@ -1,0 +1,24 @@
+.simple {
+  & .calculator__buttons {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+
+    &--option {
+      grid-area: 1/1/2/4;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr;
+    }
+
+    &--calc {
+      grid-area: 1/4/6/5;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, 1fr);
+    }
+
+    &--number {
+      grid-area: 2/1/6/4;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+    }
+  }
+}
