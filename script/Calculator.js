@@ -43,11 +43,18 @@ export class Calculator {
     this.buttons.generateOptionButtons();
 
     document.querySelectorAll(`[data-${NUMBER_BUTTONS.dataset}]`).forEach((button) => {
-      button.addEventListener('click', (event) => this.numberButtonsListener(event))
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.numberButtonsListener(event.target.textContent);
+      })
     });
 
     document.querySelectorAll(`[data-${CALCULATION_BUTTONS.dataset}]`).forEach((button) => {
-      button.addEventListener('click', (event) => this.calcButtonsListener(event))
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.currentCalculation = event.target.textContent;
+        this.calcButtonsListener()
+      })
     });
 
     document.querySelectorAll(`[data-${OPTION_BUTTONS.dataset}]`).forEach((button) => {
@@ -56,6 +63,12 @@ export class Calculator {
 
     document.querySelector(`[data-${CHANGE_SIGN_BUTTON.dataset}]`).addEventListener('click', () => this.changeSign());
     document.querySelector(`[data-${COMMUTE_BUTTON.dataset}]`).addEventListener('click', () => this.commute());
+
+    // Keyborad event listener
+    document.addEventListener('keydown', (event) => {
+      event.preventDefault();
+      this.numberKeyEventListener(event)
+    });
   }
 
   updateDisplay() {
@@ -66,13 +79,14 @@ export class Calculator {
     this.previusDisplay.textContent = this.previousDisplayValue;
   }
 
-  numberButtonsListener(event) {
-    event.preventDefault();
-    const number = event.target.textContent;
+  numberButtonsListener(number) {
     this.isCalculationActive = false;
 
     if (this.currentDisplayValue.length === MAX_DISPLAY_LENGTH) {
       return;
+    }
+    if (number === ',') {
+      number = DECIMAL_SIGN;
     }
     if (this.currentDisplayValue.includes(ERROR_MSG_START)) {
       this.currentDisplayValue = '0';
@@ -98,9 +112,7 @@ export class Calculator {
     this.updateDisplay();
   }
 
-  calcButtonsListener(event) {
-    this.currentCalculation = event.target.textContent;
-
+  calcButtonsListener() {
     if (this.isCalculationActive) {
       this.previousDisplayValue = `${this.previousDisplayValue.slice(0, -1)}${this.currentCalculation}`;
       this.updateDisplay();
@@ -191,6 +203,28 @@ export class Calculator {
     }
 
     this.updateDisplay();
+  }
+
+  numberKeyEventListener(event) {
+    const numnberKeyList = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ','];
+    if (numnberKeyList.includes(event.key)) {
+      return this.numberButtonsListener(event.key.toString());
+    }
+
+    const calcKeyList = ['+', '*', '-', '/'];
+    if (calcKeyList.includes(event.key)) {
+      this.currentCalculation = event.key;
+      return this.calcButtonsListener();
+    }
+
+    if (event.key === 'Enter') {
+      return this.commute();
+    }
+
+    if (event.key === 'Backspace') {
+      this.delete();
+      return this.updateDisplay();
+    }
   }
 
   clear() {
